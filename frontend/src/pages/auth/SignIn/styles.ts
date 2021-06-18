@@ -28,7 +28,6 @@ export const Containt = styled.div`
     text-align: center;
   }
   h1 {
-    font-size: 16px;
     margin-bottom: 24px;
   }
 
