@@ -1,22 +1,24 @@
-import { InputHTMLAttributes } from "react";
-import { Container } from './styles'
+import { InputHTMLAttributes, useEffect, useRef } from "react";
+import { Container, Error } from './styles'
 import {IconBaseProps} from 'react-icons'
-import { useField } from '@unform/core';
-import { useEffect } from "react";
-import { useRef } from "react";
 import { useState } from "react";
+import { FieldErrors, RegisterOptions, UseFormRegister } from "react-hook-form";
 import { useCallback } from "react";
+import { FiAlertCircle } from 'react-icons/fi'
 
 interface Input extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     icon?: React.ComponentType<IconBaseProps>;
+    register: UseFormRegister<any>;
+    validation?: RegisterOptions;
+    errors?: FieldErrors<any>;
 }
 
-export const Input = ({name, icon: Icon, ...rest }: Input) => {
+export const Input = ({name, icon: Icon, register, errors, validation , ...rest }: Input) => {
     const inputRef = useRef<HTMLInputElement>(null);
+
     const [isFocused, setIsFocused] = useState(false)
     const [isFilled, setIsFilled] = useState(false)
-    const { fieldName, defaultValue, error, registerField } = useField(name);
 
     const handleInputBlur = useCallback(() => {
         setIsFocused(false);
@@ -24,23 +26,26 @@ export const Input = ({name, icon: Icon, ...rest }: Input) => {
             setIsFilled(!! inputRef.current?.value);
     }, [])
 
-    useEffect(() => {
-        registerField({
-            name: fieldName,
-            ref: inputRef.current,
-            path: 'value',
-        })
-    }, [fieldName, registerField])
+    console.log(errors);
+    
+
 
     return (
-        <Container isFilled={isFilled} isFocused={isFocused}>
+        <Container isErrored={!! errors} isFilled={isFilled} isFocused={isFocused}>
             {Icon && <Icon size={20}/>}
             <input 
+            {...register(name, validation)}
+            
             onFocus={() => setIsFocused(true)}
             onBlur={handleInputBlur}
-            ref={inputRef} 
             {...rest} 
+            ref={inputRef}
             />
+            {errors && <Error title={errors.message}>
+                <FiAlertCircle color="#c53030" size={20}/>
+            </Error>
+            }
+
         </Container>
     );
 }

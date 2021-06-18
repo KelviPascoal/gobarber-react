@@ -20,7 +20,7 @@ export const Containt = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
 
   form {
     margin: 80px 0;
