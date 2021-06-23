@@ -1,43 +1,37 @@
 import { Request, Response, Router } from 'express';
-import { uuid } from 'uuidv4';
-import { appointmentsController } from '../controllers/appointmentsController';
-import {startOfHour, parseISO, isEqual } from 'date-fns'
+import { parseISO } from 'date-fns'
+import Appointment from '../models/Appointments';
+import { AppointmentsRepository } from '../repositories/AppointmentsRepositiories';
+import { CreateAppointmentsServices } from '../services/CreateAppointmentsService';
 
-interface Appointment {
-    id: string;
-    provider: string;
-    date: Date;
-}
 
 const appointmentsRouter = Router();
+
+const appointmentsRepository = new AppointmentsRepository();
 
 const appointments: Appointment[] = [];
 
 appointmentsRouter.post('/appointments', (request: Request, response: Response) => {
-    const { provider, date } = request.body;
+   try {const { provider, date } = request.body;
 
-    const parsedDate = startOfHour(parseISO(date))
+    const parsedDate = parseISO(date)
+   
+    const createAppointment = new CreateAppointmentsServices(appointmentsRepository);
 
-    const findAppointmentsInSameDate = appointments.find(appointment => 
-        isEqual(parsedDate, appointment.date)
-        );
-
-        if(findAppointmentsInSameDate) {
-            return response.status(400).json({ message: 'essa hora ja esta agendada'})
-        }
-
-    const appointment = {
-        id: uuid(),
-        provider: provider,
+    const appointment = createAppointment.excute({
         date: parsedDate,
+        provider,
+    })
+
+    return response.status(201).json(appointment);}
+    catch(err) {
+        return response.status(400).json({error: err.message})
     }
-    appointments.push(appointment)
-    return response.json(appointment)
 });
 
 appointmentsRouter.get('/appointments', (request: Request, response: Response) => {
-
-    response.status(200).json(appointments)
+    const appointments = appointmentsRepository.findAll();
+    return response.status(200).json(appointments)
 })
 
 
