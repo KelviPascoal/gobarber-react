@@ -1,43 +1,43 @@
-import { Request, Response, Router } from 'express';
-import { parseISO } from 'date-fns'
-import Appointment from '../models/Appointments';
-import { AppointmentsRepository } from '../repositories/AppointmentsRepositiories';
-import { CreateAppointmentsServices } from '../services/CreateAppointmentsService';
-
+import { Request, Response, Router } from "express";
+import { parseISO } from "date-fns";
+import AppointmentsRepository from "../repositories/AppointmentsRepositiory";
+import { CreateAppointmentsServices } from "../services/CreateAppointmentsService";
+import { getCustomRepository } from "typeorm";
 
 const appointmentsRouter = Router();
 
-const appointmentsRepository = new AppointmentsRepository();
+appointmentsRouter.get("/appointments", async (request: Request, response: Response) => {
+    
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+    const appointments = await appointmentsRepository.find();
+    return response.status(200).json(appointments);
+  }
+);
 
-const appointments: Appointment[] = [];
+appointmentsRouter.post("/appointments", async (request: Request, response: Response) => {
+    try {
+      const { provider, date } = request.body;
 
-appointmentsRouter.post('/appointments', (request: Request, response: Response) => {
-   try {const { provider, date } = request.body;
+      const parsedDate = parseISO(date);
 
-    const parsedDate = parseISO(date)
-   
-    const createAppointment = new CreateAppointmentsServices(appointmentsRepository);
+      const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
-    const appointment = createAppointment.excute({
+      const createAppointment = new CreateAppointmentsServices(
+        appointmentsRepository
+      );
+
+      const appointment = await createAppointment.excute({
         date: parsedDate,
         provider,
-    })
+      });
 
-    return response.status(201).json(appointment);}
-    catch(err) {
-        return response.status(400).json({error: err.message})
+      return response.status(201).json(appointment);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
     }
-});
-
-appointmentsRouter.get('/appointments', (request: Request, response: Response) => {
-    const appointments = appointmentsRepository.findAll();
-    return response.status(200).json(appointments)
-})
+  }
+);
 
 
 
-
-
-// appointmentsRoutes.get('/appointments', appointmentsController.findAll)
-
-export  {appointmentsRouter };
+export { appointmentsRouter };
