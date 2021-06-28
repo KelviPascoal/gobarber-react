@@ -8,7 +8,7 @@ export class CreateAppointments1624470540886 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "varchar",
+            type: "uuid",
             isPrimary: true,
             generationStrategy: "uuid",
             default: "uuid_generate_v4()",
@@ -22,6 +22,16 @@ export class CreateAppointments1624470540886 implements MigrationInterface {
             name: "date",
             type: "timestamp with time zone",
             isNullable: false,
+          },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",                
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",                
           },
         ],
       })

@@ -5,7 +5,7 @@ import {startOfHour} from 'date-fns'
 
 interface Request {
     date: Date;
-    provider: string; 
+    provider_id: string; 
 }
 
 class CreateAppointmentsServices {
@@ -15,7 +15,7 @@ class CreateAppointmentsServices {
         this.appointmentsRepository = appointmentsRepository
     }
 
-    public async excute({ provider, date }: Request): Promise<Appointment> {
+    public async excute({ provider_id, date }: Request): Promise<Appointment> {
         const appointmentDate = startOfHour(date)
 
         const findAppointmentsInSameDate = await this.appointmentsRepository.findByDate(appointmentDate)
@@ -25,7 +25,7 @@ class CreateAppointmentsServices {
             }
         
         const appointment = this.appointmentsRepository.create({
-            provider,
+            provider_id,
             date: appointmentDate,
         });
         
