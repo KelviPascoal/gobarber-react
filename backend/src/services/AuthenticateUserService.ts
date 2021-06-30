@@ -17,13 +17,12 @@ interface Response {
 
 class AuthenticateUserService {
     public async execute ({email, password}: Request): Promise< Response > {
+    
     const userRepository = getRepository(Users);
-    console.log( { email, password });
-
+        
     const user = await userRepository.findOne({where: { email } });
     if (!user) {
-        console.log(user + "test 1");
-                
+                 
         throw new Error('Incorrect email/password combination.');
     }
 
