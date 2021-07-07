@@ -1,14 +1,14 @@
 import { Request, Response, Router } from "express";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
-import CreateUserServices from "../services/CreateUserServices";
+import CreateUserServices from "@modules/users/services/CreateUserServices";
 import multer from "multer";
-import uploadConfig from "../config/upload";
-import UpdateUserAvatarService from "../services/UpdateUserAvatarService";
+import uploadConfig from "@config/upload";
+import UpdateUserAvatarService from "@modules/users/services/UpdateUserAvatarService";
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);
 
-usersRouter.post("/", async (request: Request, response: Response) => {
+usersRouter.post("/signin", async (request: Request, response: Response) => {
   try {
     const { name, email, password } = request.body;
 

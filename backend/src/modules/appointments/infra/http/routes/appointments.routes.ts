@@ -1,10 +1,10 @@
 import { Request, Response, Router } from "express";
 import { parseISO } from "date-fns";
-import AppointmentsRepository from "../repositories/AppointmentsRepositiory";
-import { CreateAppointmentsServices } from "../services/CreateAppointmentsService";
+import AppointmentsRepository from "@modules/appointments/repositories/AppointmentsRepositiory";
+import { CreateAppointmentsServices } from "@modules/appointments/services/CreateAppointmentsService";
 import { getCustomRepository } from "typeorm";
 
-import ensureAuthenticated from "../middlewares/ensureAuthenticated";
+import ensureAuthenticated from "@modules/users/infra/http/middlewares/ensureAuthenticated";
 
 const appointmentsRouter = Router();
 
@@ -22,6 +22,9 @@ appointmentsRouter.get("/appointments", async (request: Request, response: Respo
 );
 
 appointmentsRouter.post("/appointments", async (request: Request, response: Response) => {
+  console.log(request, "aaaaaaaaaaaaaaaaaaaaaa");
+  
+
     try {
       const { provider_id, date } = request.body;
 

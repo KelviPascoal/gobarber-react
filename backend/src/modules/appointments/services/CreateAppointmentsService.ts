@@ -1,6 +1,7 @@
-import Appointment from "../models/Appointments";
+import Appointment from "@modules/appointments/infra/typeorm/entities/Appointments";
 import AppointmentsRepository from "../repositories/AppointmentsRepositiory"
 import {startOfHour} from 'date-fns'
+import AppError from "@shared/errors/AppErrors";
 
 
 interface Request {
@@ -21,7 +22,7 @@ class CreateAppointmentsServices {
         const findAppointmentsInSameDate = await this.appointmentsRepository.findByDate(appointmentDate)
     
             if(findAppointmentsInSameDate) {
-                throw Error('essa hora ja esta agendada')
+                throw new AppError('essa hora ja esta agendada')
             }
         
         const appointment = this.appointmentsRepository.create({
