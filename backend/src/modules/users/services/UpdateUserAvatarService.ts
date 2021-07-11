@@ -4,14 +4,24 @@ import path from "path";
 import uploadConfig from "@config/upload";
 import fs from "fs";
 import AppError from "@shared/errors/AppErrors";
+import { injectable, inject} from 'tsyringe';
+import IUsersRepository from "../repositories/IUsersRepository";
 
-interface Request {
+
+interface IRequest {
   user_id: string;
   avatarFileName: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
-  public async execute({ user_id, avatarFileName }: Request): Promise<Users> {
+  constructor(
+    @inject('UsersRepository')
+    private userRepository: IUsersRepository
+  ) {}
+
+
+  public async execute({ user_id, avatarFileName }: IRequest): Promise<Users> {
     /**
      * instanciar o repositorio e usar ele para checar a existencia do usuario
      * depois juntar o arquivo de foto para avatar e sua respectiva rota e encapsular numa variavel

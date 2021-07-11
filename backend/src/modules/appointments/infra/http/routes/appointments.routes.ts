@@ -1,53 +1,20 @@
-import { Request, Response, Router } from "express";
-import { parseISO } from "date-fns";
-import AppointmentsRepository from "@modules/appointments/repositories/AppointmentsRepositiory";
-import { CreateAppointmentsServices } from "@modules/appointments/services/CreateAppointmentsService";
-import { getCustomRepository } from "typeorm";
-
+import { Router } from "express";
 import ensureAuthenticated from "@modules/users/infra/http/middlewares/ensureAuthenticated";
+import AppointmentsController from "../controller/appointmentsController";
 
 const appointmentsRouter = Router();
+const appointmentsController = new AppointmentsController();
 
 appointmentsRouter.use(ensureAuthenticated)
 
+// appointmentsRouter.get("/appointments", async (request: Request, response: Response) => {
+//   console.log(request.user);
+    // const appointments = await appointmentsRepository.find();
+    // return response.status(200).json(appointments);
+//   }
+// );
 
-appointmentsRouter.get("/appointments", async (request: Request, response: Response) => {
-  console.log(request.user);
-    
-    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-    const appointments = await appointmentsRepository.find();
-    
-    return response.status(200).json(appointments);
-  }
-);
-
-appointmentsRouter.post("/appointments", async (request: Request, response: Response) => {
-  console.log(request, "aaaaaaaaaaaaaaaaaaaaaa");
-  
-
-    try {
-      const { provider_id, date } = request.body;
-
-      const parsedDate = parseISO(date);
-
-      const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-
-      const createAppointment = new CreateAppointmentsServices(
-        appointmentsRepository
-      );
-
-      const appointment = await createAppointment.excute({
-        date: parsedDate,
-        provider_id,
-      });
-
-      return response.status(201).json(appointment);
-    } catch (err) {
-      return response.status(400).json({ error: err.message });
-    }
-  }
-);
-
+appointmentsRouter.post("/appointments", appointmentsController.create)
 
 
 export { appointmentsRouter };
