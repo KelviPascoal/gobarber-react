@@ -10,7 +10,7 @@ const upload = multer(uploadConfig);
 const userController = new UserController()
 const userAvatarController = new UserAvatarController()
 
-usersRouter.post("/signup", userController.create) 
+usersRouter.post("/", userController.create) 
   
 usersRouter.patch("/avatar", ensureAuthenticated,upload.single("avatar"), userAvatarController.patch)
 

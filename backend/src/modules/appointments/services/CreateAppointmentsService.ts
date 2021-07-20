@@ -16,7 +16,7 @@ class CreateAppointmentsServices {
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository) {}
 
-  public async excute({ provider_id, date }: IRequest): Promise<Appointment> {
+  public async execute({ provider_id, date }: IRequest): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
 
     const findAppointmentsInSameDate =
