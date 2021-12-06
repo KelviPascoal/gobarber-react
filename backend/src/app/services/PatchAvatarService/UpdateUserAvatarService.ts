@@ -2,9 +2,9 @@ import { getRepository } from "typeorm";
 import path from "path";
 import uploadConfig from "app/config/upload";
 import fs from "fs";
-import AppError from "@shared/errors/AppErrors";
+import AppError from "domain/errors/AppErrors";
 import { injectable, inject} from 'tsyringe';
-import IUsersRepository from "@modules/users/repositories/IUsersRepository";
+import IUsersRepository from "domain/repositories/IUsersRepository";
 import Users from "infra/typeorm/entities/Users";
 
 

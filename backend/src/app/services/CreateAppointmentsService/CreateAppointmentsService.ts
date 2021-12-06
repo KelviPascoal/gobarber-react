@@ -1,8 +1,8 @@
 import Appointment from "infra/typeorm/entities/Appointments";
 import AppointmentsRepository from "../../../infra/typeorm/repositories/AppointmentsRepositiory";
 import { startOfHour } from "date-fns";
-import AppError from "@shared/errors/AppErrors";
-import IAppointmentsRepository from "../repositories/IAppointmentsRepository";
+import AppError from "domain/errors/AppErrors";
+import IAppointmentsRepository from "../../../domain/repositories/IAppointmentsRepository";
 
 import { injectable, inject } from 'tsyringe';
 

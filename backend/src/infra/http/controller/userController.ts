@@ -1,4 +1,4 @@
-import CreateUserServices from "@modules/users/services/CreateUserServices";
+import CreateUserServices from "app/services/CreateUserService/CreateUserServices";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -18,7 +18,7 @@ export default class UserController {
             user.password = "private data!";
         
             return response.status(201).json(user);
-          } catch (err) {
+          } catch (err: any) {
             return response.status(400).json({ error: err.message });
           }
         

@@ -1,5 +1,5 @@
-import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
-import AppError from "@shared/errors/AppErrors";
+import FakeUsersRepository from "domain/repositories/fakes/FakeUsersRepository";
+import AppError from "domain/errors/AppErrors";
 import { FakeHashProvider } from "providers/HashProvider/fakes/FakeHashProvider";
 import CreateUserServices from "./CreateUserServices";
 

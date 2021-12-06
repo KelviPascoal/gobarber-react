@@ -1,8 +1,8 @@
-import AppError from "@shared/errors/AppErrors";
+import AppError from "domain/errors/AppErrors";
 import { FakeHashProvider } from "../../../providers/HashProvider/fakes/FakeHashProvider";
-import FakeUsersRepository from "../../../modules/users/repositories/fakes/FakeUsersRepository";
+import FakeUsersRepository from "../../../domain/repositories/fakes/FakeUsersRepository";
 import { AuthenticateUserService } from "./AuthenticateUserService";
-import CreateUserServices from "../CreateUserServices";
+import CreateUserServices from "../CreateUserService/CreateUserServices";
 
 describe("CreateAppointment", () => {
   it("shold be able to create a new user", async () => {

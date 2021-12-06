@@ -1,4 +1,5 @@
-import UpdateUserAvatarService from "@modules/users/services/UpdateUserAvatarService";
+import UpdateUserAvatarService from "app/services/PatchAvatarService/UpdateUserAvatarService";
+import AppError from "domain/errors/AppErrors";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -19,11 +20,11 @@ export default class UserAvatarController {
           return response.json(user);
   
         } else {
-          throw new Error('Erro')
+          throw new AppError('Erro')
         }
         
   
-      } catch (err) {
+      } catch (err: any) {
         return response.status(400).json({ error: err.message });
       }
     }

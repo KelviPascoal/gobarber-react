@@ -1,4 +1,4 @@
-import { AuthenticateUserService } from "@modules/users/services/AuthenticateUserService";
+import { AuthenticateUserService } from "app/services/Auth/AuthenticateUserService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import UsersRepository from "../../typeorm/repositories/UsersRepository";
@@ -17,7 +17,7 @@ export default class SessionsController {
         
             return response.status(200).json({user, token})
         
-          } catch (err) {
+          } catch (err: any) {
             return response.status(400).json({ error: err.message });
           }
     }

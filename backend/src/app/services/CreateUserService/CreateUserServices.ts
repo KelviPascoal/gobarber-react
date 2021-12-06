@@ -1,5 +1,5 @@
-import IUsersRepository from "@modules/users/repositories/IUsersRepository";
-import AppError from "@shared/errors/AppErrors";
+import IUsersRepository from "domain/repositories/IUsersRepository";
+import AppError from "domain/errors/AppErrors";
 import Users from "infra/typeorm/entities/Users";
 import IHashProvider from "providers/HashProvider/models/IHashProvider";
 import { injectable, inject} from 'tsyringe';

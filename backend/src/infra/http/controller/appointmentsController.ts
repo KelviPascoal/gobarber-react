@@ -1,4 +1,4 @@
-import { CreateAppointmentsServices } from "@modules/appointments/services/CreateAppointmentsService";
+import { CreateAppointmentsServices } from "app/services/CreateAppointmentsService/CreateAppointmentsService";
 import { parseISO } from "date-fns";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -12,14 +12,14 @@ export default class AppointmentsController {
 
       const createAppointment = container.resolve(CreateAppointmentsServices);
 
-      // const appointment = await createAppointment.excute({
-      //   date: parsedDate,
-      //   provider_id,
-      // });
+      const appointment = await createAppointment.excute({
+        date: parsedDate,
+        provider_id,
+      });
 
-      // return response.status(201).json(appointment);
-    } catch (err) {
-      // return response.status(400).json({ error: err.message });
+      return response.status(201).json(appointment);
+    } catch (err: any) {
+      return response.status(400).json({ error: err.message });
     }
   }
 }

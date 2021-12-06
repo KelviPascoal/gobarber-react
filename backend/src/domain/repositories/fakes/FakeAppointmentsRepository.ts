@@ -1,4 +1,4 @@
-import IAppointmentsRepository from "@modules/appointments/repositories/IAppointmentsRepository";
+import IAppointmentsRepository from "domain/repositories/IAppointmentsRepository";
 import Appointment from "infra/typeorm/entities/Appointments";
 import ICreateAppointmentsDTO from "types/dtos/ICreateAppointmentsDTO";
 import { uuid } from "uuidv4";

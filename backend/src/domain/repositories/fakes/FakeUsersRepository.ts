@@ -1,6 +1,6 @@
-import IUsersRepository from "@modules/users/repositories/IUsersRepository";
+import IUsersRepository from "domain/repositories/IUsersRepository";
 import ICreateUsersDTO from "types/dtos/ICreateUsersDTO";
-import Users from "../../../../infra/typeorm/entities/Users";
+import Users from "../../../infra/typeorm/entities/Users";
 import { uuid } from "uuidv4";
 
 class FakeUsersRepository implements IUsersRepository {
