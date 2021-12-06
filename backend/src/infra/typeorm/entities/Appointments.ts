@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import Users from "../../../../users/infra/typeorm/entities/Users";
+import Users from "./Users";
 
 // um para um (OneToOne)
 // um para muitos (onToMany)

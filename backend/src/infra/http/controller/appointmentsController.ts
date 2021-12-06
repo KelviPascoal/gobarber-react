@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 
 export default class AppointmentsController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async create(request: Request, response: Response) {
     try {
       const { provider_id, date } = request.body;
 
@@ -12,14 +12,14 @@ export default class AppointmentsController {
 
       const createAppointment = container.resolve(CreateAppointmentsServices);
 
-      const appointment = await createAppointment.excute({
-        date: parsedDate,
-        provider_id,
-      });
+      // const appointment = await createAppointment.excute({
+      //   date: parsedDate,
+      //   provider_id,
+      // });
 
-      return response.status(201).json(appointment);
+      // return response.status(201).json(appointment);
     } catch (err) {
-      return response.status(400).json({ error: err.message });
+      // return response.status(400).json({ error: err.message });
     }
   }
 }

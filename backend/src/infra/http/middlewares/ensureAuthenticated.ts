@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from 'jsonwebtoken';
-import authConfig from '@config/auth'
+import authConfig from 'app/config/auth'
 import AppError from "@shared/errors/AppErrors";
 
 interface ITokenPayload {

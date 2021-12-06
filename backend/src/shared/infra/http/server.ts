@@ -5,7 +5,7 @@ import 'express-async-errors';
 import '@shared/infra/typeorm';
 
 import routes from '@shared/infra/http/routes';
-import uploadConfig from '@config/upload';
+import uploadConfig from 'app/config/upload';
 import AppError from '@shared/errors/AppErrors';
 
 import '@shared/container';

@@ -1,11 +1,11 @@
 import { getRepository } from "typeorm";
-import Users from "../infra/typeorm/entities/Users";
 import path from "path";
-import uploadConfig from "@config/upload";
+import uploadConfig from "app/config/upload";
 import fs from "fs";
 import AppError from "@shared/errors/AppErrors";
 import { injectable, inject} from 'tsyringe';
-import IUsersRepository from "../repositories/IUsersRepository";
+import IUsersRepository from "@modules/users/repositories/IUsersRepository";
+import Users from "infra/typeorm/entities/Users";
 
 
 interface IRequest {

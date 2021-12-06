@@ -1,5 +1,5 @@
-import Appointment from "@modules/appointments/infra/typeorm/entities/Appointments";
-import AppointmentsRepository from "../infra/typeorm/repositories/AppointmentsRepositiory";
+import Appointment from "infra/typeorm/entities/Appointments";
+import AppointmentsRepository from "../../../infra/typeorm/repositories/AppointmentsRepositiory";
 import { startOfHour } from "date-fns";
 import AppError from "@shared/errors/AppErrors";
 import IAppointmentsRepository from "../repositories/IAppointmentsRepository";
